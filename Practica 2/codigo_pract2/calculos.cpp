@@ -38,20 +38,49 @@ int cifra(const int n, const int i, const int b){
 // Pre:  n >= 0 ∧ 2 <= b <= 10
 // Post: cifraMayor(n,b) = (Max α∊[1,∞].cifra(n,α,b))
 int cifraMayor(const int n, const int b){
-	return 0;
+    if(numCifras(n,b) == 1){
+        return n;
+    }else{
+        int a = numCifras(n,b); 
+        
+        // 1. Usas tu función para sacar la primera cifra (la de más a la izquierda)
+        int primeraCifra = cifra(n, a, b); 
+        
+        // 2. Le "cortas" esa primera cifra al número para hacerlo más pequeño.
+        int potencia = pow(b, a - 1);
+        int restoDelNumero = n % potencia; 
+        
+        // 3. Llamada recursiva con el número ya recortado
+        int mayorDelResto = cifraMayor(restoDelNumero, b);
+        
+        // 4. Ahora sí, comparas la cifra que sacaste con la mayor de las que quedan
+        if(primeraCifra > mayorDelResto){
+            return primeraCifra;
+        }else{
+            return mayorDelResto;
+        }
+    }
 }
-
 
 // Pre:  n >= 0 ∧ 2 <= b <= 10
 // Post: cifraMasSignificativa(n,bvp ) = n / b^(NC-1)
 //       ∧ (n >= b^(NC-1) ∧ n < b^NC)
 int cifraMasSignificativa(const int n, const int b){
-	return 0;
+	if(numCifras(n,b)==1){
+		return n;
+	}else{
+		return cifraMasSignificativa(n/b,b);
+	}
 }
 
 
 // Pre:  n >= 0 ∧ 2 <= b <= 10
 // Post: sumaCifras(n,b) = (∑ α∊[1,∞].cifra(n,α,b))
 int sumaCifras(const int n, const int b){
-	return 0;
+	if(numCifras(n,b)==1){
+		return n;
+	}else{
+		int ultimaCifra = cifra(n,1,b);
+		return ultimaCifra + sumaCifras(n/b, b);
+	}
 }
