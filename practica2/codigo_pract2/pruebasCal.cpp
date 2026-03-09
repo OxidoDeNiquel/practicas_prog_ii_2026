@@ -7,7 +7,7 @@
 //*****************************************************************
 
 #include <iostream>
-#include "calculos.hpp"
+#include "pilaEnt.hpp"
 
 using namespace std;
 
