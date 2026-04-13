@@ -22,7 +22,7 @@ int main() {
 
     // Vacía la pila P
     vaciar(P);
-    
+    /*
     cout << "El número cima es: " << cima(P) <<endl << endl;
     
     cout << "¿La pila está vacia?" << endl << endl;
@@ -32,7 +32,8 @@ int main() {
     }else{
     	cout << "No esta vacia :( algo va mal" << endl << endl;
     }
-
+	*/
+	
     // PRIMOS almacena los números primeros menores que 100
     const int PRIMOS[] = {
         2,  3,  5,  7, 11, 13, 17, 19, 23, 29,
@@ -46,6 +47,7 @@ int main() {
         apilar(P, PRIMOS[i-1]);
     }
     
+    /*
     cout << "El número cima es: " << cima(P) <<endl << endl;
     
     cout << "¿La pila está llena?" << endl << endl;
@@ -58,6 +60,27 @@ int main() {
     
     cout << "¿Cuantos datos hay en total? " << numDatos(P) <<endl << endl;
     
+    */
+    //cout << "Vamos a ver el contenido de la pila con la funcion mostrar()" << endl;
+   	//mostrar(P,3);
+    //mostrar(P,3);
+    
+    //cout << "Vamos a ver el contenido de la pila con la funcion mostrarInvertida()" << endl;
+    mostrarInvertida(P,3);
+    //mostrarInvertida(P,3);
+    /*
+    eliminarFondo(P);
+    mostrarInvertida(P,3);
+    */
+    /*
+    eliminar(P,2);
+    mostrarInvertida(P,3);
+    eliminar(P,2);
+    mostrarInvertida(P,3);
+    */
+    
+    insertarEnFondo(P,9);
+    mostrarInvertida(P,3);
 /*
     // Muestra por pantalla el contenido de P
     cout << "Se han apilado los " << numDatos(P)
@@ -74,5 +97,6 @@ int main() {
 	if(P.cima==0){
 		cout << "Ok. vaciar() funciona"<< endl;
 	}
+	
     return 0;
 }

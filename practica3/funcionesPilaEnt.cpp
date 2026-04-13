@@ -15,6 +15,8 @@
 // Tipo PilaEnt y operaciones básicas para el trabajo con pilas de datos
 #include "pilaEnt.hpp"
 
+using namespace std;
+
 
 // * Notación empleada en las especificaciones:
 // p = []  La pila p está vacía, es decir, almacena 0 datos
@@ -28,6 +30,13 @@ int numDatos(PilaEnt &p){
 	return p.cima;
 }
 
+//Funcion auxiliar para el final de la linea
+void imprimirGuiones(const int n) {
+    if (n > 0) {
+        cout << "-";
+        imprimirGuiones(n - 1);
+    }
+}
 
 // Pre:  p = [d_1, d_2, ..., d_K]  AND K >= 0 AND anchura >= 1
 // Post: p = [d_1, d_2, ..., d_K] y presenta por pantalla un listado de
@@ -45,7 +54,18 @@ int numDatos(PilaEnt &p){
 //        |     d_1 |
 //        +---------+
 void mostrar(PilaEnt &p, const int anchura){
-	
+	if(estaVacia(p)){
+		cout << "+";
+		imprimirGuiones(anchura);
+		cout << "+" << endl;
+	}else{
+		int valor = cima(p);
+		cout << "|" << setw(anchura) << valor << "|" << endl;
+		
+		desapilar(p);
+		mostrar(p,anchura);
+		apilar(p,valor);
+	}
 }
 
 
@@ -64,24 +84,63 @@ void mostrar(PilaEnt &p, const int anchura){
 //        |     ... |
 //        |     d_K |
 void mostrarInvertida(PilaEnt &p, const int anchura){
+	if(estaVacia(p)){
+		cout << "+";
+		imprimirGuiones(anchura);
+		cout << "+" << endl;
+	}else{
+		int valor = cima(p);
+		desapilar(p);
+		mostrarInvertida(p,anchura);
+		apilar(p,valor);
+		cout << "|" << setw(anchura) << valor << "|" << endl;		
+	}
 }
 
 
 // Pre:  p = [d_1, d_2, ..., d_K] AND K >= 0
 // Post: p = [d_2, ..., d_K]
 void eliminarFondo(PilaEnt &p){
+	if(!estaVacia(p)){
+		if(numDatos(p)==1){
+			desapilar(p);
+		}else{
+			int valor = cima(p);
+			desapilar(p);
+			eliminarFondo(p);
+			apilar(p,valor);
+		}
+	}
 }
 
 
 // Pre:  p = [d_1, ..., d_{(K-i)}, d_{(K-i+1)}, d_{(K-i+2)}, ..., d_K] AND 0<= K AND 1<= i <= K
 // Post: p = [d_1, ..., d_{(K-i)}, d_{(K-i+2)}, ..., d_K]
 void eliminar(PilaEnt &p, const int i){
+	if(!estaVacia(p)){
+		if(numDatos(p)==i){
+			desapilar(p);
+		}else{
+			int valor = cima(p);
+			desapilar(p);
+			eliminar(p,i);
+			apilar(p,valor);
+		}
+	}
 }
 
 
 // Pre:  p = [d_1, d_2, ..., d_K] AND K >= 0
 // Post: p = [nuevo, d_1, d_2, ..., d_K]
 void insertarEnFondo(PilaEnt &pila, const int nuevo){
+	if(estaVacia(pila)){
+		apilar(pila,nuevo);
+	}else{
+		int valor = cima(pila);
+		desapilar(pila);
+		insertarEnFondo(pila,nuevo);
+		apilar(pila,valor);
+	}
 }
 
 #endif
