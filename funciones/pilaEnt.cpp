@@ -5,8 +5,6 @@
 // Coms:   Fichero de código del módulo de biblioteca pilaEnt
 //*****************************************************************
 
-#ifndef PILAENT_HPP
-#define PILAENT_HPP
 #include "pilaEnt.hpp"
 
 // Pre:  ---
@@ -26,4 +24,23 @@ void apilar(PilaEnt &p, const int nuevo){
 // Post: p = [d_1, d_2, ..., d_(K-1)]
 void desapilar(PilaEnt &p){
 	p.cima--;
+}
+
+// Pre:  p = [d_1, d_2, ...,d_(K-1),d_K] AND K > 0
+// Post: cima(p) = d_K
+int cima(const PilaEnt &p){
+	if(p.cima==0) return 0;
+	return p.datos[p.cima-1];
+}
+
+// Pre: ---
+// Post: estaVacia(p) = (p = [])
+bool estaVacia(const PilaEnt &p){
+	return p.cima==0;
+}
+
+// * Pre: p = [d_1, d_2, ..., d_K]
+// * Post: estaLlena(p) = (K = DIM])
+bool estaLlena(const PilaEnt &p){
+	return p.cima==256;
 }

@@ -25,7 +25,7 @@
 // * Pre:  p = [d_1, d_2, ..., d_K] AND K >= 0
 // * Post: p = [d_1, d_2, ..., d_K] AND numDatos(p) = K
 int numDatos(PilaEnt &p){
-	return 0;
+	return p.cima;
 }
 
 
@@ -45,6 +45,7 @@ int numDatos(PilaEnt &p){
 //        |     d_1 |
 //        +---------+
 void mostrar(PilaEnt &p, const int anchura){
+	
 }
 
 

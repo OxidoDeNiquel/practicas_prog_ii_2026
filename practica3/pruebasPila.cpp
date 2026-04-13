@@ -10,6 +10,7 @@
 #include <iostream>
 #include <cstring>
 #include "funcionesPilaEnt.hpp"
+#include "pilaEnt.hpp"
 
 using namespace std;
 
@@ -21,20 +22,43 @@ int main() {
 
     // Vacía la pila P
     vaciar(P);
-/*
+    
+    cout << "El número cima es: " << cima(P) <<endl << endl;
+    
+    cout << "¿La pila está vacia?" << endl << endl;
+    
+    if(estaVacia(P)){
+    	cout << "Esta vacía!!" << endl << endl;
+    }else{
+    	cout << "No esta vacia :( algo va mal" << endl << endl;
+    }
+
     // PRIMOS almacena los números primeros menores que 100
     const int PRIMOS[] = {
         2,  3,  5,  7, 11, 13, 17, 19, 23, 29,
         31, 37, 41, 43, 47, 53, 59, 61, 67, 71,
         73, 79, 83, 89, 97
     };
-
+    
     // Apila en P los NUM primeros números primos
     const int NUM = 15;
     for (int i = 1; i <= NUM; ++i) {
         apilar(P, PRIMOS[i-1]);
     }
-
+    
+    cout << "El número cima es: " << cima(P) <<endl << endl;
+    
+    cout << "¿La pila está llena?" << endl << endl;
+    
+    if(estaLlena(P)){
+    	cout << "Esta llena... algo va mal" << endl << endl;
+    }else{
+    	cout << "No está llena! :) " << endl << endl;
+    }
+    
+    cout << "¿Cuantos datos hay en total? " << numDatos(P) <<endl << endl;
+    
+/*
     // Muestra por pantalla el contenido de P
     cout << "Se han apilado los " << numDatos(P)
          << " primeros numeros primos:" << endl << endl;
