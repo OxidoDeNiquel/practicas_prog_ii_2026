@@ -13,6 +13,7 @@
 using namespace std;
 
 int main(){
-
+	Laberinto lab;
+	cargarLaberinto("datos/lab0.txt", lab);
 	return 0;
 }

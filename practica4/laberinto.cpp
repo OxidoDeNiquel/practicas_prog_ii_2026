@@ -7,6 +7,7 @@
 
 #include "laberinto.hpp"
 #include <unistd.h> // para "usleep"
+#include <fstream>
 
 //*************************************************************************
 // Encontrar un camino en el laberinto
@@ -14,17 +15,17 @@
 
 // Función auxiliar que no va en el .hpp, solo en tu .cpp
 void explorar(Laberinto& lab, int f, int c, bool &encontrado) {
-	// 0. Comprobar si hemos encontrado la salida en otra rama de recursividad
+	// Comprobar si hemos encontrado la salida en otra rama de recursividad
 	if(encontrado){
 		return;
 	}
 	
-    // 1. Caso Base de FRACASO (limites del laberinto)
+    // Caso Base de FRACASO (limites del laberinto)
     if (f < 0 || f >= lab.alto || c < 0 || c >= lab.ancho || lab.mapa[f][c] != LIBRE) {
         return; // Terminamos esta rama sin hacer nada
     }
     
-    // 2. Caso Base de ÉXITO (Llegamos a la meta)
+    // Caso Base de ÉXITO (Llegamos a la meta)
     if (f == lab.alto - 2 && c == lab.ancho - 2) {
         lab.mapa[f][c] = CAMINO; // Marcamos la casilla final
         encontrado = true;       // ¡Avisamos a las demás llamadas que ya terminamos!
@@ -56,8 +57,42 @@ void buscarCamino(Laberinto& lab, bool &encontrado) {
 //*************************************************************************
 
 void cargarLaberinto(const string nombFichero, Laberinto& lab) {
+	//	Abrimos el fichero
+    ifstream fichero(nombFichero);
 
-    // COMPLETAR
+    // Comprobamos si se ha abierto correctamente
+    if (!fichero) {
+        cerr << "Error al abrir el archivo." << endl;
+        return; // Salimos de la función si hay error
+    }
+    
+    string lineaActual;
+    int contadorFilas = 0;
+
+    // Leemos línea por línea hasta que no haya más
+    while (getline(fichero, lineaActual)) {
+        
+        lab.ancho = lineaActual.length(); 
+
+        // Recorremos la línea carácter por carácter con un for
+        for (int i = 0; i < lab.ancho; i++) {
+            
+            char letra = lineaActual[i]; 
+            
+            // Validamos si la letra es uno de los caracteres permitidos
+			if (letra == LIBRE || letra == MURO || letra == CAMINO || letra == IMPOSIBLE) {
+				lab.mapa[contadorFilas][i] = letra;
+			}
+        }
+        
+        // Pasamos a la siguiente fila
+        contadorFilas++;
+    }
+    
+    lab.alto=contadorFilas;
+
+    // Cerramos el fichero
+    fichero.close();
 }
 
 
