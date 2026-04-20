@@ -8,6 +8,7 @@
 #ifndef VECTORVARENT_HPP
 #define VECTORVARENT_HPP
 
+#include <iostream>
 #include <string> 
 #include <vector> 
 

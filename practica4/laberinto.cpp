@@ -7,6 +7,7 @@
 
 #include "laberinto.hpp"
 #include <unistd.h> // para "usleep"
+#include <cstdlib>
 #include <fstream>
 
 //*************************************************************************
@@ -98,7 +99,17 @@ void cargarLaberinto(const string nombFichero, Laberinto& lab) {
 
 void generarLaberinto(Laberinto &lab, double densidad, int fila, int col) {
 	int x = randInt(0,1);
+	if(x<=densidad){
+		lab.mapa[fila][col]=MURO;
+	}else{
+		lab.mapa[fila][col]=LIBRE;
+	}
 	
+	if(fila<lab.ancho){
+		generarLaberinto(lab,densidad,fila,col+1);
+	}else{
+		generarLaberinto(lab,densidad,0,col+1);
+	}
 }
 
 int randInt(int a, int b){
