@@ -63,7 +63,7 @@ void cargarLaberinto(const string nombFichero, Laberinto& lab) {
     // Comprobamos si se ha abierto correctamente
     if (!fichero) {
         cerr << "Error al abrir el archivo." << endl;
-        return; // Salimos de la función si hay error
+        return; // Salimos si hay error
     }
     
     string lineaActual;
@@ -97,8 +97,12 @@ void cargarLaberinto(const string nombFichero, Laberinto& lab) {
 
 
 void generarLaberinto(Laberinto &lab, double densidad, int fila, int col) {
+	int x = randInt(0,1);
+	
+}
 
-    // COMPLETAR
+int randInt(int a, int b){
+	return a + rand() % (b-a+1);
 }
 
 //*************************************************************************
