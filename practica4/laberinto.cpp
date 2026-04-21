@@ -97,23 +97,41 @@ void cargarLaberinto(const string nombFichero, Laberinto& lab) {
 }
 
 
-void generarLaberinto(Laberinto &lab, double densidad, int fila, int col) {
-	int x = randInt(0,1);
-	if(x<=densidad){
-		lab.mapa[fila][col]=MURO;
-	}else{
-		lab.mapa[fila][col]=LIBRE;
-	}
-	
-	if(fila<lab.ancho){
-		generarLaberinto(lab,densidad,fila,col+1);
-	}else{
-		generarLaberinto(lab,densidad,0,col+1);
-	}
+double randDouble(const double a, const double b){
+	return a + ((double)rand()/RAND_MAX)*(b-a);
 }
 
-int randInt(int a, int b){
-	return a + rand() % (b-a+1);
+void generarLaberinto(Laberinto &lab, double densidad, int fila, int col) {
+	double x = randDouble(0.0,1.0);
+	
+	if(fila==lab.alto) return;	//Caso Base
+	
+	if (fila == 0 || fila == lab.alto - 1 || col == 0 || col == lab.ancho - 1) {
+        // 1. Bordes exteriores: SIEMPRE MURO
+        lab.mapa[fila][col] = MURO;
+        
+    } else if ((fila == 1 && col == 1) || (fila == lab.alto - 2 && col == lab.ancho - 2)) {
+        // 2. Casillas de Inicio y Meta: SIEMPRE LIBRES
+        lab.mapa[fila][col] = LIBRE;
+        
+    } else {
+    
+    	//Procesar la casilla actual
+		if(x<=densidad){
+			lab.mapa[fila][col]=MURO;
+		}else{
+			lab.mapa[fila][col]=LIBRE;
+		}
+    
+    }
+	
+	if (col < lab.ancho - 1) {
+        // Si no he llegado al final de la fila, avanzo una columna a la derecha
+        generarLaberinto(lab, densidad, fila, col + 1);
+    } else {
+        // Si ya llegué al final de la fila, salto a la fila de abajo y vuelvo a la columna 0
+        generarLaberinto(lab, densidad, fila + 1, 0);
+    }
 }
 
 //*************************************************************************
@@ -128,7 +146,7 @@ void mostrarLaberinto(const Laberinto& lab) {
         for (int j = 0; j < lab.ancho; j++) {
             cout << lab.mapa[i][j];
         }
-        // Al acabar una fila, se cambia de línea
+        
         cout << endl;
     }
 }
