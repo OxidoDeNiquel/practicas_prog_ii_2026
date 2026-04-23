@@ -58,6 +58,11 @@ void buscarCamino(Laberinto& lab, bool &encontrado) {
 //*************************************************************************
 
 void cargarLaberinto(const string nombFichero, Laberinto& lab) {
+
+	if(nombFichero==""){
+        cerr << "Error. No has puesto nombre del fichero al llamar al programa." << endl;
+        return; // Salimos si hay error
+	}
 	//	Abrimos el fichero
     ifstream fichero(nombFichero);
 

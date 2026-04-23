@@ -11,19 +11,24 @@ CC = g++                   # compilador
 CPPFLAGS = -std=c++11      # opciones de compilación
 RM = rm -f                 # comando para borrar ficheros
 
-all: pruebasLaberinto
+all: mainLab pruebasLaberinto
 #-----------------------------------------------------------
 # Compilacion
 pruebasLaberinto.o: pruebasLaberinto.cpp
 	${CC} -c pruebasLaberinto.cpp -I ../funciones ${CPPFLAGS}
 laberinto.o: laberinto.cpp laberinto.hpp
 	${CC} -c laberinto.cpp -I ../funciones ${CPPFLAGS}
+mainLab.o: mainLab.cpp
+	${CC} -c mainLab.cpp -I ../funciones ${CPPFLAGS}
 
 # Linkado
 pruebasLaberinto: pruebasLaberinto.o laberinto.o 
 	${CC} pruebasLaberinto.o laberinto.o -o pruebasLaberinto
+	
+mainLab: mainLab.o laberinto.o
+	${CC} mainLab.o laberinto.o -o mainLab
 
 #-----------------------------------------------------------	
 # LIMPIEZA de todo lo generado. Ojo: se borrarán sin preguntar
 clean:
-	${RM} laberinto.o pruebasLaberinto.o pruebasLaberinto
+	${RM} *.o mainLab pruebasLaberinto
