@@ -19,6 +19,22 @@ using namespace std;
 // POST: dataset=[entrada_0, ..., entrada_n-1] AND 
 //          ALL entrada_i.id = i (pos) 
 void cargaDataset(string fichero, Dataset &dataset){
+/*
+	if(fichero==""){
+        cerr << "Error. Nombre erroneo del fichero o dir." << endl;
+        return; // Salimos si hay error
+	}
+	
+	//	Abrimos el fichero
+    ifstream fich(fichero);
+
+    // Comprobamos si se ha abierto correctamente
+    if (!fich) {
+        cerr << "Error al abrir el archivo." << endl;
+        return; // Salimos si hay error
+    }
+    */
+    
 }
 
 // PRE: dataset=[entrada_0, ..., entrada_n-1] AND ent.id = n

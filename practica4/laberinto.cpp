@@ -156,11 +156,17 @@ void mostrarLaberinto(const Laberinto& lab) {
     }
 }
 
+void mostrarLaberintoRAux(const Laberinto& lab, int p, int f){
+	if(i==j){	//Caso Base
+		cout << lab.mapa[i][j];
+	}else{
+		
+	}
+}
 
 // Pre:  "lab" es un laberinto correcto
 // Post:  Se ha mostrado el laberinto por la salida estándar
 // Coms:  Versión recursiva
 void mostrarLaberintoR(const Laberinto& lab) {
-
-    // COMPLETAR
+	
 }

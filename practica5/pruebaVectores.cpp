@@ -1,5 +1,5 @@
 //***************************************************************************
-// File:   pruevaVectores.cpp
+// File:   pruebaVectores.cpp
 // Author: Programación II. Universidad de Zaragoza
 // Date:   18/02/2026
 // Coms:   Pruebas :P
@@ -44,14 +44,14 @@ int main() {
     cout << "\n5. Probando elementosCompartidos..." << endl;
     anadirFinal(miVector, 1); anadirFinal(miVector, 2); anadirFinal(miVector, 3);
     anadirFinal(otroVector, 2); anadirFinal(otroVector, 3); anadirFinal(otroVector, 4);
-    /*
+    
     VectorVarEnt compartidos = elementosCompartidos(miVector, otroVector);
     cout << "   Tamano del vector de compartidos (deberia ser 2): " << tamano(compartidos) << endl;
-	*/
+	
     // 7. Probar muestraVector 
     cout << "\n6. Probando muestraVector (Cuidado, puede dar error de ejecucion):" << endl;
     // Descomenta la siguiente línea bajo tu propio riesgo hasta que corrijas la función ;)
-    // muestraVector(miVector); 
+   	muestraVector(miVector); 
 
     cout << "\n--- FIN DE LA PRUEBA ---" << endl;
 
