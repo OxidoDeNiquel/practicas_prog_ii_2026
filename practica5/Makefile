@@ -11,7 +11,7 @@ CC = g++                   # compilador
 CPPFLAGS = -std=c++11        # opciones de compilación
 RM = rm -f                 # comando para borrar ficheros
 
-all: tpb pruebaVectores pruebasDataset
+all: tpb pruebaVectores pruebasDataset pruebasIndiceInvertido
 #-----------------------------------------------------------
 # Compilación de objetos
 
@@ -32,6 +32,9 @@ pruebaVectores.o: pruebaVectores.cpp
 	
 pruebasDataset.o: pruebasDataset.cpp
 	${CC} -c pruebasDataset.cpp ${CPPFLAGS}
+	
+pruebasIndiceInvertido.o: pruebasIndiceInvertido.cpp
+	${CC} -c pruebasIndiceInvertido.cpp ${CPPFLAGS}
 
 #-----------------------------------------------------------
 # Linkado
@@ -42,8 +45,11 @@ pruebaVectores: pruebaVectores.o vectorVarEnt.o
 	${CC} pruebaVectores.o vectorVarEnt.o -o pruebaVectores
 	
 pruebasDataset: pruebasDataset.o dataset.o
-	${CC} pruebasDataset.o dataset.o -o dataset
+	${CC} pruebasDataset.o dataset.o -o pruebasDataset
+	
+pruebasIndiceInvertido: pruebasIndiceInvertido.o indiceInvertido.o
+	${CC} pruebasIndiceInvertido.o indiceInvertido.o -o pruebasIndiceInvertido
 #-----------------------------------------------------------    
 # LIMPIEZA de todo lo generado
 clean:
-	${RM} *.o tpb pruebaVectores pruebasDataset
+	${RM} *.o tpb pruebaVectores pruebasDataset pruebasIndiceInvertido
