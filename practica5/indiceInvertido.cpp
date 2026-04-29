@@ -26,7 +26,9 @@ VectorVarEnt extraerDocumentos(string ids){
     string doc;
     
     while (getline(ss, doc, ',')) {
-    	anadirFinal(resultado,stoi(doc));
+    	if (!doc.empty() && doc != "\r") {
+            anadirFinal(resultado, stoi(doc));
+        }
     }
     
     return resultado;
@@ -85,12 +87,35 @@ void anadirEntrada (IndiceInvertido &indice, const EntradaIndice &ent){
 	indice.push_back(ent);
 }
 
+// Búsqueda binaria recursiva adaptada para buscar strings en el índice
+int buscaDicotomicaAux(const IndiceInvertido &indice, const string &palabra, int p, int f) {
+	if(p>f){	//Casi base: No encontrado
+		return -1;
+	}
+	
+	int medio= p+(f-p)/2;
+	string palabraMedio=accedePos(indice, medio).palabra;
+	
+	if (palabraMedio == palabra) {
+        return medio;
+    } 
+    else if (palabraMedio > palabra) {
+        // Buscar mitad izquierda
+        return buscaDicotomicaAux(indice, palabra, p, medio - 1);
+    } 
+    else {
+        // Buscar mitad derecha
+        return buscaDicotomicaAux(indice, palabra, medio + 1, f);
+    }
+}
+
 // PRE: indice = [entrada_0, ..., entrada_n-1] AND palabra != ""
 // POST: buscaPalabraSimple(indice,palabra) = pos AND 
 //      (palabra IN {entrada_i.palabra | entrada_i in indice} => indice[pos].palabra == palabra) 
 //      AND (palabra NOT IN {entrada_i.palabra | entrada_i in indice} => pos = -1)
 int buscaPalabraSimple (const IndiceInvertido &indice, const string palabra){
-	return 0;
+	if (tamano(indice) == 0) return -1;
+    return buscaDicotomicaAux(indice, palabra, 0, tamano(indice) - 1);
 }
 
 // PRE: indice = [entrada_0, ..., entrada_n-1] AND FORALL palabra IN palabras.palabra != ""
@@ -108,21 +133,17 @@ VectorVarEnt buscaPalabras (const IndiceInvertido &indice, const vector<string> 
 
 void muestraIndiceAux(const IndiceInvertido &v, int i){
 	if(i==0){
-		cout << v.at(i) << endl;
-	}else{
-		muestraIndiceAux(v,i-1);
-		cout << v.at(i) << endl;
-	}
+        cout << "Palabra: " << v.at(i).palabra << "\nNum documentos: " << tamano(v.at(i).documentos) << endl;
+    }else{
+        muestraIndiceAux(v,i-1);
+        cout << "Palabra: " << v.at(i).palabra << "\nNum documentos: " << tamano(v.at(i).documentos) << endl;
+    }
 }
 
 // PRE: TRUE
 // POST: muestra por pantalla los contenidos del índice
 void muestraIndice (const IndiceInvertido &indice){
-	if (v.size()!=0) { 
-        muestraVectorAux(v, v.size() - 1);
-    } else {
-        cout << "Vector vacío." << endl;
-    }
+	muestraIndiceAux(indice, indice.size() - 1);
 }
 
 // PRE: TRUE

@@ -47,8 +47,10 @@ pruebaVectores: pruebaVectores.o vectorVarEnt.o
 pruebasDataset: pruebasDataset.o dataset.o
 	${CC} pruebasDataset.o dataset.o -o pruebasDataset
 	
-pruebasIndiceInvertido: pruebasIndiceInvertido.o indiceInvertido.o
-	${CC} pruebasIndiceInvertido.o indiceInvertido.o -o pruebasIndiceInvertido
+# ¡Aquí estaba el error! Faltaba vectorVarEnt.o
+pruebasIndiceInvertido: pruebasIndiceInvertido.o indiceInvertido.o vectorVarEnt.o
+	${CC} pruebasIndiceInvertido.o indiceInvertido.o vectorVarEnt.o -o pruebasIndiceInvertido
+
 #-----------------------------------------------------------    
 # LIMPIEZA de todo lo generado
 clean:
