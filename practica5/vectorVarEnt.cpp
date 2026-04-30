@@ -57,13 +57,20 @@ VectorVarEnt elementosCompartidos(const VectorVarEnt &v1, const VectorVarEnt &v2
         return vectElemCompart;
     }
 
+    // Recorremos el primer vector
     for(int i = 0; i < tamano(v1); i++){
         int valorV1 = accedePos(v1, i);
+        bool encontrado = false;
         
-        // Aplicamos Divide y Vencerás para buscar valorV1 en v2
-        bool encontrado = busquedaBinariaRecursiva(v2, valorV1, 0, tamano(v2) - 1);
+        // busqueda lineal
+        for(int j = 0; j < tamano(v2); j++){
+            if(accedePos(v2, j) == valorV1){
+                encontrado = true;
+                break; // encontrado, paramos de buscar
+            }
+        }
         
-        // Si la búsqueda binaria devuelve true, esta en ambos
+        // Si estaba en ambos, lo añadimos
         if(encontrado){
             anadirFinal(vectElemCompart, valorV1);
         }

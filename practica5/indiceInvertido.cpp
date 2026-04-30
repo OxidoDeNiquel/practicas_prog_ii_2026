@@ -89,7 +89,7 @@ void anadirEntrada (IndiceInvertido &indice, const EntradaIndice &ent){
 
 // Búsqueda binaria recursiva adaptada para buscar strings en el índice
 int buscaDicotomicaAux(const IndiceInvertido &indice, const string &palabra, int p, int f) {
-	if(p>f){	//Casi base: No encontrado
+	if(p>f){	
 		return -1;
 	}
 	
@@ -127,8 +127,36 @@ int buscaPalabraSimple (const IndiceInvertido &indice, const string palabra){
 //      NOT (FORALL palabra_i in palabras. buscaPalabraSimple(indice,palabra) != -1 )
 //          result = [] 
 VectorVarEnt buscaPalabras (const IndiceInvertido &indice, const vector<string> palabras){
-	VectorVarEnt v;
-	return v;
+	VectorVarEnt resultado;
+    
+    if (palabras.empty()) {
+        return resultado; 
+    }
+
+    int posPrimera = buscaPalabraSimple(indice, palabras[0]);
+    if (posPrimera == -1) {
+        // Si la primera palabra no está, la intersección será siempre vacía
+        return resultado; 
+    }
+    
+    resultado = accedePos(indice, posPrimera).documentos;
+
+    for (int i = 1; i < palabras.size(); i++) {
+        int posActual = buscaPalabraSimple(indice, palabras[i]);
+        
+        if (posActual == -1) {
+            // Si UNA de las palabras no existe, la intersección de TODAS es vacía
+            vaciar(resultado); 
+            return resultado;
+        }
+        
+        VectorVarEnt docsActual = accedePos(indice, posActual).documentos;
+        
+        // interseccion
+        resultado = elementosCompartidos(resultado, docsActual);
+    }
+
+    return resultado;
 }
 
 void muestraIndiceAux(const IndiceInvertido &v, int i){

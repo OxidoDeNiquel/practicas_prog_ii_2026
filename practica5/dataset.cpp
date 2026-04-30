@@ -54,8 +54,17 @@ void cargaDataset(string fichero, Dataset &dataset){
         
         EntradaDataset ed;
         
+        
         ed.id = stoi(id); //Pasamos a int
         ed.cita = cita;
+        
+        // quitamos el #
+        if (autor.length() > 2 && autor.substr(0, 2) == "# ") {
+            autor = autor.substr(2);
+        } else if (autor.length() > 1 && autor[0] == '#') {
+            autor = autor.substr(1);
+        }
+        
         ed.autor = autor;
         
         anadirEntrada(dataset,ed);
